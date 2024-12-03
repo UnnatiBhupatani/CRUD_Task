@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+<link rel="stylesheet" href="style.css">
+<script>
+
+function validateForm() {
+            let fname = document.forms["form1"]["fname"].value.trim();
+            let lname = document.forms["form1"]["lname"].value.trim();
+            let dob = document.forms["form1"]["dob"].value.trim();
+            let email = document.forms["form1"]["email"].value.trim();
+            let pass = document.forms["form1"]["password"].value.trim();
+            let errors = [];
+
+           
+            if (fname === "") {
+                
+                errors.push("First name must not be empty.");
+            }
+
+            if (lname === "") {
+                errors.push("Last name must not be empty.");
+            }
+
+            let dobRegex = /^\d{4}-\d{2}-\d{2}$/; 
+            if (!dobRegex.test(dob) || isNaN(new Date(dob).getTime())) {
+                errors.push("Date of Birth must be a valid date in the format YYYY-MM-DD.");
+            }
+
+            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errors.push("Email must be in a valid format.");
+            }
+
+            if (pass.length < 8 && pass.length> 8) {
+                errors.push("Password must be  8 characters long.");
+            }
+
+            if (errors.length > 0) {
+                alert(errors.join("\n"));
+                return false;
+            }
+
+            return true;
+        }
+
+
+</script>
+</head>
+<body>
+    <div class="container">
+    <form method="POST" action="insert.php" name="form1" onsubmit="return validateForm();">
+        <h3>User Registration</h3><br>
+        <input type="text" name="fname" placeholder="Enter First Name:"><br><br>
+        <input type="text" name="lname" placeholder="Enter Last Name:"><br><br>
+        <input type="text" name="dob" placeholder="Enter Date of Birth:"><br><br>
+        <input type="text" name="email" placeholder="Enter Email:"><br><br>
+        <input type="text" name="password" placeholder="Enter Password:"><br><br>
+
+        <button>Insert</button>
+        <a href="display.php">Display </a>
+
+       
+    </form>
+</div>
+</body>
+</html>
